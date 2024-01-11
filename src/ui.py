@@ -91,7 +91,7 @@ class ui:
         self.entry_total_sets.insert(0, 1)
         self.entry_total_sets.grid(column=1, row=4)
         
-        self.submit = tk.Button(self.mapset_frame, text='Submit', command=self.calculate_total) 
+        self.submit = tk.Button(self.mapset_frame, text='Calculate', command=self.calculate_total) 
         self.submit.grid(column=3, row=5)
         
         self.mapset_frame.pack(side="top")
@@ -108,8 +108,8 @@ class ui:
         + self.scarab_values[self.choice_scarab_four.get()]) \
             * int(self.entry_total_sets.get())
         
-        total_compass_sets_rounded = 4 * math.ceil(int(self.entry_total_sets.get()) / 4)
-        
+        total_compass_sets_rounded = math.ceil(int(self.entry_total_sets.get()) / 4)
+
         total_compass_chaos = int(self.compass_values[self.choice_compass_one.get()] \
         + self.compass_values[self.choice_compass_two.get()] \
         + self.compass_values[self.choice_compass_three.get()] \
