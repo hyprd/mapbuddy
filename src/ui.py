@@ -1,5 +1,6 @@
 import tkinter.ttk as ttk
 import tkinter as tk
+import math
 from api import fetch_resource_names, ResourceType
 
 class ui:
@@ -75,13 +76,20 @@ class ui:
         
         self.label_total_cost = ttk.Label(self.mapset_frame, name="label_total_cost")
         self.label_total_cost.configure(text='Total Cost')
-        self.label_total_cost.grid(column=0, padx=10, pady=10, row=4)
+        self.label_total_cost.grid(column=0, padx=10, pady=10, row=5)
         
         self.label_chaos = ttk.Label(self.mapset_frame, name="label_chaos")
-        self.label_chaos.grid(column=2, row=4)
+        self.label_chaos.grid(column=1, row=5)
         
         self.label_divines = ttk.Label(self.mapset_frame, name="label_divines")
-        self.label_divines.grid(column=3, row=4)
+        self.label_divines.grid(column=2, row=5)
+        
+        self.label_total_sets = ttk.Label(self.mapset_frame, name="label_total_sets", text="Total Sets")
+        self.label_total_sets.grid(column=0, row=4)
+        
+        self.entry_total_sets = ttk.Entry(self.mapset_frame, name="entry_total_sets")
+        self.entry_total_sets.insert(0, 1)
+        self.entry_total_sets.grid(column=1, row=4)
         
         self.submit = tk.Button(self.mapset_frame, text='Submit', command=self.calculate_total) 
         self.submit.grid(column=3, row=5)
@@ -94,14 +102,21 @@ class ui:
         self.mainwindow.mainloop()     
         
     def calculate_total(self):
-        total_chaos = self.scarab_values[self.choice_scarab_one.get()] \
+        total_scarab_chaos = int(self.scarab_values[self.choice_scarab_one.get()] \
         + self.scarab_values[self.choice_scarab_two.get()] \
         + self.scarab_values[self.choice_scarab_three.get()] \
-        + self.scarab_values[self.choice_scarab_four.get()] \
-        + self.compass_values[self.choice_compass_one.get()] \
+        + self.scarab_values[self.choice_scarab_four.get()]) \
+            * int(self.entry_total_sets.get())
+        
+        total_compass_sets_rounded = 4 * math.ceil(int(self.entry_total_sets.get()) / 4)
+        
+        total_compass_chaos = int(self.compass_values[self.choice_compass_one.get()] \
         + self.compass_values[self.choice_compass_two.get()] \
         + self.compass_values[self.choice_compass_three.get()] \
-        + self.compass_values[self.choice_compass_four.get()]
+        + self.compass_values[self.choice_compass_four.get()]) \
+            * total_compass_sets_rounded
+        
+        total_chaos = total_scarab_chaos + total_compass_chaos
         
         self.label_chaos['text'] = str(total_chaos) + "c"
         self.label_divines['text'] = str(round(total_chaos / 215, 2)) + "div"
