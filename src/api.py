@@ -8,7 +8,7 @@ Pattern = Enum('Pattern', ['NINJA', 'TFT'])
         
 def fetch_resource(endpoint, pattern):
     data = requests.get(endpoint).json()
-    items = {'None' : 0}
+    items = {'' : 0}
     match(pattern):
         case Pattern.NINJA:
             for key in data['lines']:
