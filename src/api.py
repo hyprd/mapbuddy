@@ -8,12 +8,13 @@ Pattern = Enum('Pattern', ['NINJA', 'TFT'])
         
 def fetch_resource(endpoint, pattern):
     data = requests.get(endpoint).json()
-    items = {}
+    items = {'None' : 0}
     match(pattern):
         case Pattern.NINJA:
             for key in data['lines']:
-                items.update({key['name']: math.ceil(key['chaosValue'])})
+                items[key['name']] = math.ceil(key['chaosValue'])
         case Pattern.TFT:
             for key in data['data']:
-                items.update({key['name'] : math.ceil(key['chaos'])})
+                items[key['name']] = math.ceil(key['chaos'])
+    items['None'] = 0
     return items
