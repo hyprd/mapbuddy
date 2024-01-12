@@ -1,13 +1,15 @@
 import tkinter.ttk as ttk
 import tkinter as tk
 import math
-from api import fetch_resource_names, ResourceType
+from api import *
 
 class ui:
-    def __init__(self, master=None):
-        self.scarab_values = fetch_resource_names(ResourceType.SCARAB)
-        self.compass_values = fetch_resource_names(ResourceType.COMPASS)
-        self.mapset_frame = ttk.Frame(master, name="mapset_frame")
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("MapBuddy")
+        self.scarab_values = fetch_resource(endpoint_scarabs, Pattern.NINJA)
+        self.compass_values = fetch_resource(endpoint_compasses, Pattern.TFT)
+        self.mapset_frame = ttk.Frame(self.window, name="mapset_frame")
         self.mapset_frame.configure(height=200, width=200)
         
         self.label_scarab_one = ttk.Label(self.mapset_frame, name="label_scarab_one")
@@ -15,7 +17,7 @@ class ui:
         self.label_scarab_one.grid(column=0, padx=10, row=0)
         self.choice_scarab_one = tk.StringVar(self.mapset_frame)
         self.choice_scarab_one.set("Scarab 1 Option")     
-        self.dropdown_scarab_one = ttk.OptionMenu(self.mapset_frame, self.choice_scarab_one, *self.scarab_values)
+        self.dropdown_scarab_one = ttk.OptionMenu(self.mapset_frame, self.choice_scarab_one,  *self.scarab_values)
         self.dropdown_scarab_one.grid(column=1, padx=10, pady=10, row=0)
         
         self.label_scarab_two = ttk.Label(self.mapset_frame, name="label_scarab_two")
@@ -95,11 +97,9 @@ class ui:
         self.submit.grid(column=3, row=5)
         
         self.mapset_frame.pack(side="top")
-
-        self.mainwindow = self.mapset_frame
         
     def run(self):
-        self.mainwindow.mainloop()     
+        self.window.mainloop()     
         
     def calculate_total(self):
         total_scarab_chaos = int(self.scarab_values[self.choice_scarab_one.get()] \
