@@ -65,7 +65,7 @@ class ui:
         self.label_compass_four.configure(text='Compass 4')
         self.label_compass_four.grid(column=2, row=3)
         self.choice_compass_four = tk.StringVar(self.mapset_frame)
-        self.dropdown_compass_four = ttk.Combobox(self.mapset_frame, textvariable=self.choice_compass_four, values=list(self.compass_values.keys()), width=30)
+        self.dropdown_compass_four = ttk.Combobox(self.mapset_frame, textvariable=self.choice_compass_four, values=list(self.compass_values.keys()), width=25)
         self.dropdown_compass_four.grid(column=3, row=3, padx=10, pady=10)
         
         self.label_total_cost = ttk.Label(self.mapset_frame, name="label_total_cost")
