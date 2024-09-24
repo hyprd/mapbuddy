@@ -1,3 +1,5 @@
+NOTICE: With the removal of sextant mods this script is largely obsolete.
+
 # MapBuddy
 Calculate the cost of your mapping setup in Path of Exile.
 
